@@ -1,0 +1,13 @@
+# Created by https://www.gitignore.io/api/swift,xcode,macos,objective-c
+# Edit at https://www.gitignore.io/?templates=swift,xcode,macos,objective-c
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+./movie/Podfile.lock
+./movie/Podfile.save
+
+*.xcuserstate
