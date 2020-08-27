@@ -10,15 +10,16 @@ import Foundation
 import Alamofire
 
 struct MovieService: APIService {
-    static func getMovieSearchList(queryString: String, country: String, start: Int, completion: @escaping (MovieSearchResult?)->Void) {
+    static func movieSearchList(queryString: String, country: String, start: Int, display: Int, completion: @escaping (MovieSearchResult)->Void) {
         let headerParam: HTTPHeaders = ["X-Naver-Client-Id": "unyQtNpHf6QScXy35y2i",
                                          "X-Naver-Client-Secret": "R7X3lD0Qbz"]
         
         let queryParam: [String: Any] = ["query": queryString,
-                                           "country": country,
-                                           "start": start]
+                                        "country": country,
+                                        "start": start,
+                                        "display" : display]
         
-        Alamofire.request(baseUrl(), method: .get, parameters: queryParam, encoding: URLEncoding.default, headers: headerParam).responseJSON {
+        AF.request(baseUrl(), method: .get, parameters: queryParam, encoding: URLEncoding.default, headers: headerParam).responseJSON {
             response in switch response.result {
             case .success(let value):
                 do {

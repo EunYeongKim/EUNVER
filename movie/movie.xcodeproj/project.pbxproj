@@ -19,10 +19,11 @@
 		28A4E9DC24ED028E00500ED7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A4E9DA24ED028E00500ED7 /* Main.storyboard */; };
 		28A4E9DE24ED029300500ED7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A4E9DD24ED029300500ED7 /* Assets.xcassets */; };
 		28A4E9E124ED029300500ED7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A4E9DF24ED029300500ED7 /* LaunchScreen.storyboard */; };
-		D4168A27ABA39E66D491A322 /* Pods_movie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346EEDC2A2CBE7321EDC383C /* Pods_movie.framework */; };
+		5CE392CB42B7F1C10AE51D8F /* libPods-movie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19703DE3DC120EC4C77C2121 /* libPods-movie.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19703DE3DC120EC4C77C2121 /* libPods-movie.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-movie.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		286391B924F4EEE900CC3F7D /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		286391BB24F4EF0F00CC3F7D /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		286391C124F5094500CC3F7D /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		28A4E9DD24ED029300500ED7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28A4E9E024ED029300500ED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28A4E9E224ED029300500ED7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		346EEDC2A2CBE7321EDC383C /* Pods_movie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_movie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4EDBF7867C02EC613E7F72 /* Pods-movie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movie.debug.xcconfig"; path = "Target Support Files/Pods-movie/Pods-movie.debug.xcconfig"; sourceTree = "<group>"; };
 		87F20CD7C72C1DFF658309B5 /* Pods-movie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movie.release.xcconfig"; path = "Target Support Files/Pods-movie/Pods-movie.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4168A27ABA39E66D491A322 /* Pods_movie.framework in Frameworks */,
+				5CE392CB42B7F1C10AE51D8F /* libPods-movie.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +128,7 @@
 		E91DC68F9F8B37E3DDCCA501 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				346EEDC2A2CBE7321EDC383C /* Pods_movie.framework */,
+				19703DE3DC120EC4C77C2121 /* libPods-movie.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,7 +144,6 @@
 				28A4E9CD24ED028E00500ED7 /* Sources */,
 				28A4E9CE24ED028E00500ED7 /* Frameworks */,
 				28A4E9CF24ED028E00500ED7 /* Resources */,
-				7F05F9B182AF18A0D05312A2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -223,23 +222,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F05F9B182AF18A0D05312A2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-movie/Pods-movie-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-movie/Pods-movie-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-movie/Pods-movie-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -332,7 +314,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -386,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -402,12 +384,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5VE639J3N;
 				INFOPLIST_FILE = movie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sh.eunyeong.movie;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eunyeong.movie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -420,12 +403,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5VE639J3N;
 				INFOPLIST_FILE = movie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sh.eunyeong.movie;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eunyeong.movie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

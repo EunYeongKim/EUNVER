@@ -7,7 +7,11 @@
 .AppleDouble
 .LSOverride
 
+#Pods 관련 
 ./movie/Podfile.lock
 ./movie/Podfile.save
 
+#xcodeproj 안의 불필요한 파일
 *.xcuserstate
+./movie/xcschememanagement.plist
+./movie/contents.xcworkspacedata
