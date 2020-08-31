@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Moive: Codable {
+struct Movie: Codable {
     var movieTitle: String?
     var movieLink: String?
     var movieImage: String?
@@ -19,7 +19,7 @@ struct Moive: Codable {
     var movieUserRating: String?
 }
 
-extension Moive {
+extension Movie {
     enum CodingKeys: String, CodingKey {
         case movieTitle = "title"
         case movieLink = "link"
@@ -37,5 +37,5 @@ struct MovieSearchResult: Codable {
     var total: Int?
     var start: Int?
     var display: Int?
-    var items: [Moive] = []
+    var items: [Movie] = []
 }

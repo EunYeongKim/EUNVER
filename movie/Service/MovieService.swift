@@ -12,7 +12,7 @@ import Alamofire
 struct MovieService: APIService {
     static func movieSearchList(queryString: String, country: String, start: Int, display: Int, completion: @escaping (MovieSearchResult)->Void) {
         let headerParam: HTTPHeaders = ["X-Naver-Client-Id": "unyQtNpHf6QScXy35y2i",
-                                         "X-Naver-Client-Secret": "R7X3lD0Qbz"]
+                                        "X-Naver-Client-Secret": "R7X3lD0Qbz"]
         
         let queryParam: [String: Any] = ["query": queryString,
                                         "country": country,

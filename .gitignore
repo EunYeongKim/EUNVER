@@ -8,6 +8,7 @@
 .LSOverride
 
 #Pods 관련 
+./movie/Pods/
 ./movie/Podfile.lock
 ./movie/Podfile.save
 

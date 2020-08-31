@@ -17,13 +17,23 @@ class MovieViewController: UIViewController {
     private var itemStartIdx: Int = 0
     
     private var movies: MovieSearchResult = MovieSearchResult()
-    private var movieItems: [Moive] = []
+    private var movieItems: [Movie] = []
     
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        movieTableView.prefetchDataSource = self
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? MovieTableViewCell {
+            guard let indexPath = movieTableView.indexPath(for: cell) else { return }
+            if let vc = segue.destination as? MovieDetailViewController {
+                vc.movie = movieItems[indexPath.row]
+            }
+        }
     }
     
     // prefetch시 movieItems배열에 appendCount만큼 추가
@@ -103,20 +113,19 @@ extension MovieViewController: UITableViewDataSource {
 
         let font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)!
         if let tmpKorMovieTitle = currentCellMovie.movieTitle {
-            cell.korMovieTitle.attributedText = tmpKorMovieTitle.htmlEscaped(isTitle: true, colorHex: "#a0b4fa", font: font)
+            cell.korMovieTitle.attributedText = tmpKorMovieTitle.htmlEscapedWithHighlight(isTitle: true, colorHex: "#a0b4fa", font: font)
         }
         if let tmpEngMovieTitle = currentCellMovie.movieSubtitle {
-            cell.engMovieTitle.attributedText = tmpEngMovieTitle.htmlEscaped(isTitle: false, colorHex: "#a0b4fa", font: font)
+            cell.engMovieTitle.attributedText = tmpEngMovieTitle.htmlEscapedWithHighlight(isTitle: false, colorHex: "#a0b4fa", font: font)
         }
 
         // 이미지URL이 없을 경우 default이미지로 대체
-        if currentCellMovie.movieImage != "" {
-            if let imageUrlStr = currentCellMovie.movieImage {
-                let imageUrl = URL(string: imageUrlStr)
-                cell.movieImage.kf.setImage(with: imageUrl)
-            }
-        } else {
+        guard let imageUrlStr = currentCellMovie.movieImage else { return cell }
+        if imageUrlStr.isEmpty {
             cell.movieImage.image = UIImage(named: "defaultImg.png")
+        } else {
+            let imageUrl = URL(string: imageUrlStr)
+            cell.movieImage.kf.setImage(with: imageUrl)
         }
         
         return cell
@@ -137,52 +146,3 @@ extension MovieViewController: UITableViewDelegate {
         }
     }
 }
-
-extension String {
-    // <b> 하이라이트 효과
-    func htmlEscaped(isTitle: Bool, colorHex: String, font: UIFont) -> NSAttributedString {
-        let titleStyle = """
-                        <style>
-                        body {
-                        font-size: 17px;
-                        font-family: \(font.familyName);
-                        font-weight: bolder;
-                        }
-                        b {
-                        color: \(colorHex);
-                        }
-                        </style>
-                        """
-        
-        let subtitleStyle = """
-                            <style>
-                            body {
-                            font-family: \(font.familyName);
-                            font-size: 13px;
-                            }
-                            b {
-                            color: \(colorHex);
-                            }
-                            </style>
-                            """
-        var modified = ""
-        if isTitle {
-            modified = String(format:"\(titleStyle)%@", self)
-        } else {
-            modified = String(format:"\(subtitleStyle)%@", self)
-        }
-        
-        do {
-            guard let data = modified.data(using: .unicode) else {
-                return NSAttributedString(string: self)
-            }
-            let attributed = try NSAttributedString(data: data,
-                                                    options: [.documentType: NSAttributedString.DocumentType.html],
-                                                    documentAttributes: nil)
-            return attributed
-        } catch {
-            return NSAttributedString(string: self)
-        }
-    }
-}
-
