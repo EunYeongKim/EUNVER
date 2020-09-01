@@ -13,6 +13,7 @@
 ./movie/Podfile.save
 
 #xcodeproj 안의 불필요한 파일
+./movie/xcuserdata/
 *.xcuserstate
 ./movie/xcschememanagement.plist
 ./movie/contents.xcworkspacedata
