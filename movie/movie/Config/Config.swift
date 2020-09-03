@@ -10,8 +10,10 @@ import Foundation
 
 
 struct Config {
+    static let baseUrl = "https://openapi.naver.com/v1/search"
     struct URL {
-        static let movieSearchBaseUrl = "https://openapi.naver.com/v1/search/movie.json"
+        static let movieSearchUrl = baseUrl + "/movie.json"
+        static let thumbnailSearchUrl = baseUrl + "/image"
     }
     struct APIKey {
         static let naverClientId = "unyQtNpHf6QScXy35y2i"

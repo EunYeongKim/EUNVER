@@ -1,31 +1,30 @@
 //
-//  MovieService.swift
+//  ThumbnailService.swift
 //  movie
 //
-//  Created by 60080252 on 2020/08/25.
+//  Created by 60080252 on 2020/09/02.
 //  Copyright © 2020 60080252. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-struct MovieService {
-    static func movieSearchList(queryString: String, country: String, start: Int, display: Int, completion: @escaping (MovieSearchResult)->Void) {
+struct ThumbnailService {
+    static func thumbnailSearchList(queryString: String, start: Int, display: Int, completion: @escaping (ThumbnailSearchResult)->Void) {
         let headerParam: HTTPHeaders = ["X-Naver-Client-Id": Config.APIKey.naverClientId,
                                         "X-Naver-Client-Secret": Config.APIKey.naverClientKey]
         
         let queryParam: [String: Any] = ["query": queryString,
-                                        "country": country,
                                         "start": start,
                                         "display" : display]
         
-        AF.request(Config.URL.movieSearchUrl, method: .get, parameters: queryParam, encoding: URLEncoding.default, headers: headerParam).responseJSON {
+        AF.request(Config.URL.thumbnailSearchUrl, method: .get, parameters: queryParam, encoding: URLEncoding.default, headers: headerParam).responseJSON {
             response in switch response.result {
             case .success(let value):
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: value, options: .prettyPrinted)
-                    let movieList = try JSONDecoder().decode(MovieSearchResult.self, from: jsonData)
-                    completion(movieList)
+                    let imageList = try JSONDecoder().decode(ThumbnailSearchResult.self, from: jsonData)
+                    completion(imageList)
                 } catch {
                     print(error.localizedDescription)
                 }
