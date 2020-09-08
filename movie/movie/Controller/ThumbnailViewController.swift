@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class ThumbnailViewController: UIViewController {
     private var queryString: String = ""
@@ -38,7 +37,7 @@ class ThumbnailViewController: UIViewController {
     
     func loadMoreThumbs() {
         guard thumbnailResult.items.count - 1 < self.itemStartIdx else { return }
-        ThumbnailService.thumbnailSearchList(queryString: self.queryString, start: self.itemStartIdx, display: self.displayCount) { result in
+        ThumbnailService.thumbnailSearchList(queryString: self.queryString, start: self.itemStartIdx + 1, display: self.displayCount) { result in
             self.thumbnailResult.items.append(contentsOf: result.items)
             if let thumbDisplay = self.thumbnailResult.display {
                 self.itemStartIdx += thumbDisplay
@@ -62,8 +61,12 @@ extension ThumbnailViewController: UICollectionViewDataSourcePrefetching {
 extension ThumbnailViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-        guard let queryString = searchBar.text else { return }
-        loadThumbs(queryString: queryString)
+        if self.queryString.isEmpty {
+            self.thumbnailResult = ThumbnailSearchResult()
+            self.thumbCollectionView.reloadData()
+        } else {
+            loadThumbs(queryString: queryString)
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

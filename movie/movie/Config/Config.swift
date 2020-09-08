@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 struct Config {
     static let baseUrl = "https://openapi.naver.com/v1/search"
@@ -18,5 +18,14 @@ struct Config {
     struct APIKey {
         static let naverClientId = "unyQtNpHf6QScXy35y2i"
         static let naverClientKey = "R7X3lD0Qbz"
+    }
+    enum Font{
+        enum AppleSDGothicNeo: String {
+            case Regular = "AppleSDGothicNeo-Regular"
+            
+            func of(_ size: CGFloat) -> UIFont {
+                return UIFont(name: self.rawValue, size: size) ?? UIFont()
+            }
+        }
     }
 }
