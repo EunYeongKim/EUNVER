@@ -9,6 +9,7 @@
 import UIKit
 
 class MovieViewController: UIViewController {
+    private var loadMoreFlag: Bool = false
     private let country: String = ""
     private var queryString: String = ""
     private let displayCount: Int = 100
@@ -16,11 +17,18 @@ class MovieViewController: UIViewController {
     private var movies: MovieSearchResult = MovieSearchResult()
     
     @IBOutlet weak var movieTableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         movieTableView.prefetchDataSource = self
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.navigationController?.navigationBar.topItem?.title = ""
+        
+        var search = UISearchController(searchResultsController: nil)
+        search.searchBar.delegate = self
+        search.obscuresBackgroundDuringPresentation = false
+        self.navigationItem.searchController = search
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,26 +42,26 @@ class MovieViewController: UIViewController {
     
     // SearchBar로 검색 시
     func loadMovies(queryString: String) {
-        self.itemStartIdx = 0
-        MovieService.movieSearchList(queryString: queryString, country: self.country, start: 1, display: self.displayCount) { result in
-            self.movies = result
-            self.movieTableView.setContentOffset(.zero, animated: true)
-            if let movieDisplay = self.movies.display {
-                self.itemStartIdx += movieDisplay
+        if !self.loadMoreFlag {
+            self.itemStartIdx = 0
+            MovieService.movieSearchList(queryString: queryString, country: self.country, start: 1, display: self.displayCount) { result in
+                self.movies = result
+                self.movieTableView.setContentOffset(.zero, animated: true)
+                if let movieDisplay = self.movies.display {
+                    self.itemStartIdx += movieDisplay
+                }
+                self.movieTableView.reloadData()
+                self.loadMoreFlag = true
             }
-            self.movieTableView.reloadData()
-        }
-    }
-    
-    // pagination 처리 - 추가 결과를 보여줌
-    func loadMoreMovies() {
-        guard movies.items.count - 1 < self.itemStartIdx else { return }
-        MovieService.movieSearchList(queryString: queryString, country: self.country, start: self.itemStartIdx + 1, display: self.displayCount) { result in
-            self.movies.items.append(contentsOf: result.items)
-            if let movieDisplay = self.movies.display {
-                self.itemStartIdx += movieDisplay
+        } else {
+            guard movies.items.count - 1 < self.itemStartIdx else { return }
+            MovieService.movieSearchList(queryString: self.queryString, country: self.country, start: self.itemStartIdx + 1, display: self.displayCount) { result in
+                self.movies.items.append(contentsOf: result.items)
+                if let movieDisplay = self.movies.display {
+                    self.itemStartIdx += movieDisplay
+                }
+                self.movieTableView.reloadData()
             }
-            self.movieTableView.reloadData()
         }
     }
 }
@@ -62,7 +70,7 @@ extension MovieViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             if indexPath.row == self.itemStartIdx - 1 {
-                loadMoreMovies()
+                loadMovies(queryString: self.queryString)
                 break
             }
         }
@@ -76,9 +84,11 @@ extension MovieViewController: UISearchBarDelegate {
             movies = MovieSearchResult()
             movieTableView.reloadData()
         } else {
+            self.loadMoreFlag = false
             loadMovies(queryString: self.queryString)
         }
     }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let queryString = searchBar.text else { return }
         self.queryString = queryString
@@ -92,7 +102,7 @@ extension MovieViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieTableViewCell
-
+        
         let currentCellMovie = self.movies.items[indexPath.row]
         cell.movieData = currentCellMovie
         

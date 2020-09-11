@@ -20,4 +20,12 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         }
     }
     @IBOutlet weak var thumbImageView: UIImageView!
+    
+    override func awakeFromNib() {
+        thumbImageView.layer.cornerRadius = 20
+        thumbImageView.layer.masksToBounds = true
+        thumbImageView.layer.shadowOffset = CGSize(width: 10, height: 10)
+        thumbImageView.layer.shadowOpacity = 0.6
+        thumbImageView.layer.shadowRadius = 5
+    }
 }
