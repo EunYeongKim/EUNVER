@@ -17,3 +17,7 @@
 *.xcuserstate
 ./movie/xcschememanagement.plist
 ./movie/contents.xcworkspacedata
+
+
+#API KEY관련
+./movie/Config/
